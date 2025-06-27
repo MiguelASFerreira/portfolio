@@ -2,6 +2,8 @@ import "./globals.css";
 
 import { Inter, Lobster } from "next/font/google";
 
+import { Navbar } from "@/components/navbar";
+
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
@@ -21,9 +23,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${inter.variable} ${lobster.variable} antialiased`}
+        className={`${inter.className} ${lobster.variable} antialiased`}
         suppressHydrationWarning
       >
+        <Navbar />
         {children}
       </body>
     </html>
