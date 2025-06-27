@@ -1,10 +1,16 @@
 import "./globals.css";
 
-import { Inter } from "next/font/google";
+import { Inter, Lobster } from "next/font/google";
 
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
+});
+
+const lobster = Lobster({
+  variable: "--font-lobster",
+  subsets: ["latin"],
+  weight: "400",
 });
 
 export default function RootLayout({
@@ -15,7 +21,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${inter.variable} antialiased`}
+        className={`${inter.variable} ${lobster.variable} antialiased`}
         suppressHydrationWarning
       >
         {children}

@@ -1,1 +1,6 @@
 @import "tailwindcss";
+
+@theme inline {
+  --font-inter: var(--font-inter);
+  ----font-lobster: var(--font-lobster);
+}
