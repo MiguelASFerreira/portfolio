@@ -2,7 +2,13 @@ import { MenuIcon } from "lucide-react";
 import Link from "next/link";
 
 import { Button } from "./ui/button";
-import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "./ui/sheet";
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "./ui/sheet";
 
 export function Navbar() {
   return (
@@ -20,9 +26,7 @@ export function Navbar() {
         </SheetTrigger>
         <SheetContent side="left" className="px-11">
           <SheetHeader>
-            <SheetTitle className="text-white">
-              Miguel Antonio
-            </SheetTitle>
+            <SheetTitle className="text-white">Miguel Antonio</SheetTitle>
           </SheetHeader>
           <Link
             href="#"
@@ -34,7 +38,7 @@ export function Navbar() {
 
           <div className="grid gap-2 py-6">
             <Link
-              href="#"
+              href="sobre-mim"
               className="hover:text-principal flex w-full items-center py-2 text-lg font-semibold text-white"
               prefetch={false}
             >
@@ -51,12 +55,12 @@ export function Navbar() {
           </div>
         </SheetContent>
       </Sheet>
-      <Link href="#" className="hover:text-principal hidden text-white lg:flex">
+      <Link href="/" className="hover:text-principal hidden text-white lg:flex">
         Miguel Antonio
       </Link>
 
       <nav className="ml-auto hidden gap-4 lg:flex">
-        <Link href="#" className="hover:text-principal text-white">
+        <Link href="sobre-mim" className="hover:text-principal text-white">
           SOBRE MIM
         </Link>
 
