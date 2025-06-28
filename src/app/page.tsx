@@ -10,6 +10,7 @@ export default function Home() {
           width={400}
           height={667}
           className="rounded-[40px]"
+          quality={100}
         />
       </div>
       <div className="absolute top-[300px] left-[722px]">
