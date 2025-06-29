@@ -1,4 +1,5 @@
 import { ProfileSection } from "./components/profile-section";
+import { TimelineExperience } from "./components/timeline-experience";
 
 export default function AboutMe() {
   return (
@@ -38,7 +39,15 @@ Minha principal prioridade tem sido o desenvolvimento Front-end, seguido pelo Ba
         imageOnLeft={false}
       />
 
-      
+      <section className="mt-[80px] flex flex-col items-center justify-center">
+        <h1 className="text-principal text-center text-[45px] font-bold">
+          Linha do Tempo
+        </h1>
+
+        <div className="mt-30 mb-[300px]">
+          <TimelineExperience />
+        </div>
+      </section>
     </div>
   );
 }
