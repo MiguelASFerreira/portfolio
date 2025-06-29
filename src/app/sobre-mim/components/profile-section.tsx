@@ -26,7 +26,7 @@ export function ProfileSection({
   return (
     <section className="flex flex-col items-center gap-6 py-12 md:flex-row">
       {imageOnLeft && (
-        <div className="relative flex w-full items-start justify-start md:w-1/2">
+        <div className="relative flex w-full items-start justify-start md:w-1/2 max-md:hidden">
           <div className="w-[70%] rounded-md bg-[#2A2A2A] pt-3 pl-3">
             <Image
               src={imageUrl}
@@ -50,7 +50,7 @@ export function ProfileSection({
       </div>
 
       {!imageOnLeft && (
-        <div className="relative flex w-full items-start justify-start md:w-1/2">
+        <div className="relative flex w-full items-start justify-start md:w-1/2 max-md:hidden">
           <div className="w-[70%] rounded-md bg-[#2A2A2A] pt-3 pr-3">
             <Image
               src={imageUrl}
