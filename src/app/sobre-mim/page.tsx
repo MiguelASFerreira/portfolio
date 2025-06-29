@@ -44,7 +44,7 @@ Minha principal prioridade tem sido o desenvolvimento Front-end, seguido pelo Ba
           Linha do Tempo
         </h1>
 
-        <div className="mt-30 mb-[300px]">
+        <div className="mt-30">
           <TimelineExperience />
         </div>
       </section>
