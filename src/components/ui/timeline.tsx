@@ -52,13 +52,6 @@ export const TimelineEvent = ({
         </div>
       </div>
       <div className="mt-[-4px] flex flex-col gap-2">
-        {/* <Image
-          src="/images/logo-viptech.svg"
-          alt="Viptech Logo"
-          width={30}
-          height={30}
-          quality={100}
-        /> */}
         {children}
       </div>
     </div>

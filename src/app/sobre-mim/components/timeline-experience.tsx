@@ -37,7 +37,7 @@ export function TimelineExperience() {
             )}
             {entry.isActive && (
               <span className="text-principal ml-2 text-sm font-semibold">
-                Active
+                Ativo
               </span>
             )}
           </TimelineEvent.Title>
