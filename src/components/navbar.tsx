@@ -12,7 +12,7 @@ import {
 
 export function Navbar() {
   return (
-    <header className="bg-navbar flex h-20 w-full shrink-0 items-center px-4 md:px-6">
+    <header className="bg-navbar fixed top-0 left-0 z-50 flex h-20 w-full items-center px-4 md:px-6">
       <Sheet>
         <SheetTrigger asChild>
           <Button
@@ -46,7 +46,7 @@ export function Navbar() {
             </Link>
 
             <Link
-              href="#"
+              href="portfolio"
               className="hover:text-principal flex w-full items-center py-2 text-lg font-semibold text-white"
               prefetch={false}
             >
@@ -64,7 +64,7 @@ export function Navbar() {
           SOBRE MIM
         </Link>
 
-        <Link href="#" className="hover:text-principal text-white">
+        <Link href="portfolio" className="hover:text-principal text-white">
           PORTFÓLIO
         </Link>
       </nav>

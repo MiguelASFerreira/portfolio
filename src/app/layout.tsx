@@ -23,7 +23,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${inter.className} ${lobster.variable} antialiased`}
+        className={`${inter.className} ${lobster.variable} antialiased pt-20`}
         suppressHydrationWarning
       >
         <Navbar />
