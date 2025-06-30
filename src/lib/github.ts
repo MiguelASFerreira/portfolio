@@ -19,11 +19,11 @@ let cache: {
 
 const CACHE_EXPIRATION = 10 * 60 * 1000; // 10 minutos
 
-export async function getGitHubProjects(search?: string) {
+export async function getGitHubProjects() {
   const now = Date.now();
 
   if (cache.data.length > 0 && now - cache.timestamp < CACHE_EXPIRATION) {
-    return filtrarProjetos(cache.data, search);
+    return cache.data;
   }
 
   const reposRes = await axios.get(
@@ -64,15 +64,5 @@ export async function getGitHubProjects(search?: string) {
   );
 
   cache = { data: projects, timestamp: Date.now() };
-  return filtrarProjetos(projects, search);
-}
-
-function filtrarProjetos(projects: any[], search?: string) {
-  if (!search) return projects;
-
-  return projects.filter((project) =>
-    [project.title, project.category, ...project.topics].some((val) =>
-      val?.toLowerCase().includes(search.toLowerCase()),
-    ),
-  );
+  return projects;
 }
