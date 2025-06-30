@@ -23,7 +23,6 @@ export async function getGitHubProjects(search?: string) {
   const now = Date.now();
 
   if (cache.data.length > 0 && now - cache.timestamp < CACHE_EXPIRATION) {
-    console.log("🔁 Usando cache");
     return filtrarProjetos(cache.data, search);
   }
 
