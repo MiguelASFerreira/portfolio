@@ -1,5 +1,8 @@
+"use client";
+
 import { MenuIcon } from "lucide-react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 import { Button } from "./ui/button";
 import {
@@ -10,7 +13,14 @@ import {
   SheetTrigger,
 } from "./ui/sheet";
 
+const navLinks = [
+  { href: "/sobre-mim", label: "SOBRE MIM" },
+  { href: "/portfolio", label: "PORTFÓLIO" },
+];
+
 export function Navbar() {
+  const pathname = usePathname();
+
   return (
     <header className="bg-navbar fixed top-0 left-0 z-50 flex h-20 w-full items-center px-4 md:px-6">
       <Sheet>
@@ -28,45 +38,41 @@ export function Navbar() {
           <SheetHeader>
             <SheetTitle className="text-white">Miguel Antonio</SheetTitle>
           </SheetHeader>
-          <Link
-            href="#"
-            className="mr-6 hidden text-white lg:flex"
-            prefetch={false}
-          >
-            <span>Miguel Antonio</span>
-          </Link>
 
           <div className="grid gap-2 py-6">
-            <Link
-              href="sobre-mim"
-              className="hover:text-principal flex w-full items-center py-2 text-lg font-semibold text-white"
-              prefetch={false}
-            >
-              SOBRE MIM
-            </Link>
-
-            <Link
-              href="portfolio"
-              className="hover:text-principal flex w-full items-center py-2 text-lg font-semibold text-white"
-              prefetch={false}
-            >
-              PORTFÓLIO
-            </Link>
+            {navLinks.map(({ href, label }) => (
+              <Link
+                key={href}
+                href={href}
+                className={`flex w-full items-center py-2 text-lg font-semibold ${
+                  pathname === href ? "text-principal" : "text-white"
+                } hover:text-principal`}
+                prefetch={false}
+              >
+                {label}
+              </Link>
+            ))}
           </div>
         </SheetContent>
       </Sheet>
+
       <Link href="/" className="hover:text-principal hidden text-white lg:flex">
         Miguel Antonio
       </Link>
 
       <nav className="ml-auto hidden gap-4 lg:flex">
-        <Link href="sobre-mim" className="hover:text-principal text-white">
-          SOBRE MIM
-        </Link>
-
-        <Link href="portfolio" className="hover:text-principal text-white">
-          PORTFÓLIO
-        </Link>
+        {navLinks.map(({ href, label }) => (
+          <Link
+            key={href}
+            href={href}
+            className={`font-semibold ${
+              pathname === href ? "text-principal" : "text-white"
+            } hover:text-principal`}
+            prefetch={false}
+          >
+            {label}
+          </Link>
+        ))}
       </nav>
     </header>
   );
