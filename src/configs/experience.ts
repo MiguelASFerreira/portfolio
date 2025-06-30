@@ -16,7 +16,7 @@ export const experience: ExperienceEntry[] = [
     startDate: "Fev. 2025",
     endDate: "Abr. 2025",
     isActive: false,
-    logo: "/images/logo-viptech.svg",
+    logo: "/logo/logo-viptech.svg",
     companyUrl: "https://www.viptech.com.br/",
   },
   {
@@ -26,7 +26,7 @@ export const experience: ExperienceEntry[] = [
     startDate: "Out. 2024",
     endDate: "Fev. 2025",
     isActive: false,
-    logo: "/images/logo-integrado.svg",
+    logo: "/logo/logo-integrado.svg",
     companyUrl: 'https://www.grupointegrado.br/',
   },
   {
@@ -36,7 +36,7 @@ export const experience: ExperienceEntry[] = [
     startDate: "Set. 2023",
     endDate: "Set. 2024",
     isActive: false,
-    logo: "/images/logo-integrado.svg",
+    logo: "/logo/logo-integrado.svg",
     companyUrl: 'https://www.grupointegrado.br/',
   },
 ];
