@@ -15,7 +15,8 @@ import {
 
 const navLinks = [
   { href: "/sobre-mim", label: "SOBRE MIM" },
-  { href: "/portfolio", label: "PORTFÓLIO" },
+  { href: "/habilidades", label: "HABILIDADES" },
+  { href: "/projetos", label: "PROJETOS" },
 ];
 
 export function Navbar() {

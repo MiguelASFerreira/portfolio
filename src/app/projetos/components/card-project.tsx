@@ -18,7 +18,7 @@ export interface ProjectParams {
   topics: string[];
 }
 
-export function CardPortfolio({ id, title, des, repo, topics }: ProjectParams) {
+export function CardProject({ id, title, des, repo, topics }: ProjectParams) {
   return (
     <Card key={id} className="h-full w-full bg-navbar">
       <CardHeader>

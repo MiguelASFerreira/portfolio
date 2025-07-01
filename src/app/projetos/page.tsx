@@ -1,6 +1,6 @@
 import { Projects } from "./components/projects";
 
-export default function Portfolio() {
+export default function Projetos() {
   return (
     <div className="flex flex-col items-center justify-center gap-4 px-[80px] py-10">
       <h1 className="text-principal text-center text-2xl font-bold">Projetos</h1>

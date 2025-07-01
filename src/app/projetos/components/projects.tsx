@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { CardPortfolioSkeleton } from "@/components/card-portfolio-skeleton";
 import { api } from "@/lib/axios";
 
-import { CardPortfolio, ProjectParams } from "./card-portfolio";
+import { CardProject, ProjectParams } from "./card-project";
 
 export function Projects() {
   const [projects, setProjects] = useState<ProjectParams[]>([]);
@@ -50,7 +50,7 @@ export function Projects() {
   return (
     <>
       {projects.map((project) => (
-        <CardPortfolio key={project.id} {...project} />
+        <CardProject key={project.id} {...project} />
       ))}
     </>
   );
