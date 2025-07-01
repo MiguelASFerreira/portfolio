@@ -7,6 +7,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { getTechColor } from "@/configs/getTechColor";
 
 export interface ProjectParams {
   id: string;
@@ -31,7 +32,7 @@ export function CardProject({ id, title, des, repo, topics }: ProjectParams) {
           <p className="mb-2">{des}</p>
           <div className="flex flex-wrap gap-2">
             {topics.map((topic, index) => (
-              <Badge key={index}>{topic}</Badge>
+              <Badge key={index} className={`border ${getTechColor(topic)}`}>{topic}</Badge>
             ))}
           </div>
         </CardDescription>
