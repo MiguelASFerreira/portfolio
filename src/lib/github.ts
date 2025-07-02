@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use server";
-import axios from "axios";
 
 import { env } from "@/env";
 
@@ -11,45 +10,33 @@ if (!GITHUB_TOKEN) {
   throw new Error("GITHUB_TOKEN não definido no .env.local");
 }
 
-// Cache em memória
-let cache: {
-  data: any[];
-  timestamp: number;
-} = { data: [], timestamp: 0 };
-
-const CACHE_EXPIRATION = 10 * 60 * 1000; // 10 minutos
-
 export async function getGitHubProjects() {
-  const now = Date.now();
-
-  if (cache.data.length > 0 && now - cache.timestamp < CACHE_EXPIRATION) {
-    return cache.data;
-  }
-
-  const reposRes = await axios.get(
+  const reposRes = await fetch(
     `https://api.github.com/users/${GITHUB_USERNAME}/repos?sort=last&per_page=8`,
     {
       headers: {
         Authorization: `token ${GITHUB_TOKEN}`,
       },
+      next: { revalidate: 600 }, // <- cache automático por 10 minutos
     },
   );
 
-  const repos = reposRes.data;
+  const repos = await reposRes.json();
 
   const projects = await Promise.all(
     repos.map(async (repo: any) => {
-      const topicsRes = await axios.get(
+      const topicsRes = await fetch(
         `https://api.github.com/repos/${GITHUB_USERNAME}/${repo.name}/topics`,
         {
           headers: {
             Authorization: `token ${GITHUB_TOKEN}`,
             Accept: "application/vnd.github.v3+json",
           },
+          next: { revalidate: 600 }, // <- idem
         },
       );
 
-      const topics = topicsRes.data.names || [];
+      const topicsData = await topicsRes.json();
 
       return {
         id: repo.id.toString(),
@@ -58,11 +45,10 @@ export async function getGitHubProjects() {
         category: repo.language?.toLowerCase() || "unknown",
         repo: repo.html_url,
         link: repo.homepage ? repo.homepage : "",
-        topics,
+        topics: topicsData.names || [],
       };
     }),
   );
 
-  cache = { data: projects, timestamp: Date.now() };
   return projects;
 }

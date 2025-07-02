@@ -1,11 +1,15 @@
+// app/projetos/page.tsx
 import { Plus } from "lucide-react";
 import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
+import { getGitHubProjects } from "@/lib/github";
 
-import { Projects } from "./components/projects";
+import { CardProject } from "./components/card-project";
 
-export default function Projetos() {
+export default async function Projetos() {
+  const projects = await getGitHubProjects();
+
   return (
     <div className="flex flex-col items-center justify-center gap-4 px-[80px] py-10">
       <div className="text-center">
@@ -19,7 +23,15 @@ export default function Projetos() {
       </div>
 
       <div className="mt-10 grid w-full grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-        <Projects />
+        {projects.length === 0 ? (
+          <p className="text-muted-foreground col-span-full text-center">
+            Nenhum projeto encontrado.
+          </p>
+        ) : (
+          projects.map((project) => (
+            <CardProject key={project.id} {...project} />
+          ))
+        )}
       </div>
 
       <div className="mt-10">
