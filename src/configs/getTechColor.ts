@@ -37,6 +37,9 @@ export const getTechColor = (tech: string) => {
     husky: "bg-neutral-800/20 text-neutral-300 border-neutral-700/30", 
     "ddd-architecture": "bg-fuchsia-700/20 text-fuchsia-300 border-fuchsia-700/30", 
     nextjs: "bg-neutral-900/20 text-[#004DFF] border-[#004DFF]/30",
+    python: "bg-transparent bg-gradient-to-r from-[#3D7AAB] to-[#FFE05E] bg-clip-text text-transparent  border-yellow-500/30",
+    python3: "bg-transparent bg-gradient-to-r from-[#3D7AAB] to-[#FFE05E] bg-clip-text text-transparent  border-yellow-500/30",
+    venv: "bg-green-700/20 text-green-300 border-green-700/30",
   };
 
   return (
