@@ -28,6 +28,7 @@ export const skills: SkillGroup[] = [
     skills: [
       { name: "HTML5", level: 95 },
       { name: "CSS3", level: 90 },
+      { name: "PHP", level: 75 },
       { name: "JavaScript", level: 85 },
       { name: "TypeScript", level: 90 },
       { name: "React", level: 90 },
