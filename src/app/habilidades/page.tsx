@@ -2,6 +2,11 @@ import { skills } from "@/configs/skills";
 
 import { CardSkills } from "./components/card-skills";
 
+export const metadata = {
+  title: "Portfólio - Habilidades",
+  description: "Conheça mais sobre minhas habilidades",
+};
+
 export default function Habilidades() {
   return (
     <section className="flex flex-col items-center justify-center gap-4 px-[80px] py-10">

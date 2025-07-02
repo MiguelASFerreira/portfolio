@@ -1,6 +1,11 @@
 import { ProfileSection } from "./components/profile-section";
 import { TimelineExperience } from "./components/timeline-experience";
 
+export const metadata = {
+  title: "Portfólio - Sobre Mim",
+  description: "Conheça mais sobre minha jornada",
+};
+
 export default function AboutMe() {
   return (
     <div className="flex flex-col px-[87px]">

@@ -6,6 +6,11 @@ import { getGitHubProjects } from "@/lib/github";
 
 import { CardProject } from "./components/card-project";
 
+export const metadata = {
+  title: "Portfólio - Projetos",
+  description: "Confira meus projetos desenvolvidos aplicando tecnologias modernas",
+};
+
 export default async function Projetos() {
   const projects = await getGitHubProjects();
 

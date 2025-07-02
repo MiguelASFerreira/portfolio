@@ -1,5 +1,10 @@
 import Image from "next/image";
 
+export const metadata = {
+  title: "Portfólio - Miguel Antonio",
+  description: "Meu portfólio pessoal",
+};
+
 export default function Home() {
   return (
     <div className="flex flex-col items-center justify-center gap-6 px-4 py-12">
