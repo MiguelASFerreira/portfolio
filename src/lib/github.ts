@@ -17,7 +17,7 @@ export async function getGitHubProjects() {
       headers: {
         Authorization: `token ${GITHUB_TOKEN}`,
       },
-      next: { revalidate: 600 }, // <- cache automático por 10 minutos
+      next: { revalidate: 600 },
     },
   );
 
@@ -32,7 +32,7 @@ export async function getGitHubProjects() {
             Authorization: `token ${GITHUB_TOKEN}`,
             Accept: "application/vnd.github.v3+json",
           },
-          next: { revalidate: 600 }, // <- idem
+          next: { revalidate: 600 },
         },
       );
 

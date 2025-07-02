@@ -1,7 +1,5 @@
 "use client";
 
-// import Image from "next/image";
-
 import { cn } from "@/lib/utils";
 
 interface TimelineEventProps {
@@ -9,12 +7,10 @@ interface TimelineEventProps {
   children: React.ReactNode;
   last?: boolean;
 }
-// Main Timeline container component
 export const Timeline = ({ children }: { children: React.ReactNode }) => {
   return <>{children}</>;
 };
 
-// TimelineEvent component that handles the individual event's layout and appearance
 export const TimelineEvent = ({
   active,
   children,
@@ -58,18 +54,15 @@ export const TimelineEvent = ({
   );
 };
 
-// TimelineEvent.Title for event title
 const TimelineEventTitle = ({ children }: { children: React.ReactNode }) => (
-  <p className="text-base text-white">{children}</p> // Dark theme: white text
+  <p className="text-base text-white">{children}</p>
 );
 
-// TimelineEvent.Description for event description
 const TimelineEventDescription = ({
   children,
 }: {
   children: React.ReactNode;
 }) => {
-  // Ensure children is a string before performing replacement
   const formattedDescription =
     children && typeof children === "string"
       ? children.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
@@ -80,10 +73,9 @@ const TimelineEventDescription = ({
       className="text-muted-foreground text-base"
       dangerouslySetInnerHTML={{ __html: formattedDescription as string }}
     />
-  ); // Dark theme: dimmed white text, bold text inside ** will be bolded
+  );
 };
 
-// Attach the Title and Description as static properties of TimelineEvent
 TimelineEvent.Title = TimelineEventTitle;
 TimelineEvent.Description = TimelineEventDescription;
 
