@@ -34,12 +34,20 @@ export const getTechColor = (tech: string) => {
     "docker-compose": "bg-[#1D63ED]/20 text-neutral-300 border-[#1D63ED]/30",
     axios: "bg-[#6A3EE7]/20 text-[#6A3EE7] border-[#6A3EE7]/30",
     "react-router-dom": "bg-[#E50000]/20 text-[#F9F9F9] border-[#E50000]/30",
-    husky: "bg-neutral-800/20 text-neutral-300 border-neutral-700/30", 
-    "ddd-architecture": "bg-fuchsia-700/20 text-fuchsia-300 border-fuchsia-700/30", 
+    husky: "bg-neutral-800/20 text-neutral-300 border-neutral-700/30",
+    "ddd-architecture":
+      "bg-fuchsia-700/20 text-fuchsia-300 border-fuchsia-700/30",
     nextjs: "bg-neutral-900/20 text-[#004DFF] border-[#004DFF]/30",
-    python: "bg-transparent bg-gradient-to-r from-[#3D7AAB] to-[#FFE05E] bg-clip-text text-transparent  border-yellow-500/30",
-    python3: "bg-transparent bg-gradient-to-r from-[#3D7AAB] to-[#FFE05E] bg-clip-text text-transparent  border-yellow-500/30",
+    python:
+      "bg-transparent bg-gradient-to-r from-[#3D7AAB] to-[#FFE05E] bg-clip-text text-transparent  border-yellow-500/30",
+    python3:
+      "bg-transparent bg-gradient-to-r from-[#3D7AAB] to-[#FFE05E] bg-clip-text text-transparent  border-yellow-500/30",
     venv: "bg-green-700/20 text-green-300 border-green-700/30",
+    ci: "bg-red-700/20 text-red-400 border-red-700/30",
+    cd: "bg-red-600/20 text-red-300 border-red-600/30",
+    "ci/cd": "bg-red-700/20 text-red-400 border-red-700/30",
+    "google-cloud":
+      "bg-transparent bg-gradient-to-r from-[#4285F4] via-[#EA4335] via-[#FBBC05] to-[#34A853] bg-clip-text text-transparent border-[#4285F4]/30"
   };
 
   return (
