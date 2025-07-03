@@ -7,6 +7,7 @@ interface TimelineEventProps {
   children: React.ReactNode;
   last?: boolean;
 }
+
 export const Timeline = ({ children }: { children: React.ReactNode }) => {
   return <>{children}</>;
 };
@@ -17,39 +18,28 @@ export const TimelineEvent = ({
   last,
 }: TimelineEventProps) => {
   return (
-    <div
-      className={cn(
-        "flex w-full justify-start gap-6 border-neutral-300 dark:border-neutral-700",
-        {
-          "border-l": !last,
-          "pb-16": !last,
-        },
-      )}
-    >
-      <div className="relative">
+    <div className="flex w-full gap-6">
+      <div className="relative flex flex-col items-center">
+        {!last && (
+          <div className="absolute top-2 left-1/2 h-full w-px -translate-x-1/2 bg-neutral-300 dark:bg-neutral-700" />
+        )}
+
         <div
           className={cn(
-            "absolute top-[-2px] left-[-8.5px] aspect-square h-4 w-4 rounded-full outline-black dark:outline-neutral-900",
+            "relative z-10 aspect-square rounded-full outline-black dark:outline-neutral-900",
             {
-              "bg-principal": active,
-              "bg-neutral-300 dark:bg-neutral-700": !active,
-              "h-3 w-3": !active,
-              "left-[-5.5px]": !active,
+              "bg-principal h-4 w-4": active,
+              "h-3 w-3 bg-neutral-300 dark:bg-neutral-700": !active,
             },
           )}
         >
           {active && (
-            <div
-              className={cn(
-                "bg-principal absolute top-0 left-0 -z-10 aspect-square h-4 w-4 animate-ping rounded-full",
-              )}
-            />
+            <div className="bg-principal absolute top-0 left-0 -z-10 aspect-square h-4 w-4 animate-ping rounded-full" />
           )}
         </div>
       </div>
-      <div className="mt-[-4px] flex flex-col gap-2">
-        {children}
-      </div>
+
+      <div className="mt-[-4px] flex flex-col gap-2 pb-16">{children}</div>
     </div>
   );
 };
