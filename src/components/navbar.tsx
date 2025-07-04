@@ -15,6 +15,7 @@ import {
 
 const navLinks = [
   { href: "/sobre-mim", label: "SOBRE MIM" },
+  { href: "/educacao", label: "EDUCAÇÃO" },
   { href: "/habilidades", label: "HABILIDADES" },
   { href: "/projetos", label: "PROJETOS" },
 ];
@@ -50,7 +51,7 @@ export function Navbar() {
                 } hover:text-principal`}
                 prefetch={false}
               >
-                {label}
+                {label.toUpperCase()}
               </Link>
             ))}
           </div>
@@ -71,7 +72,7 @@ export function Navbar() {
             } hover:text-principal`}
             prefetch={false}
           >
-            {label}
+            {label.toUpperCase()}
           </Link>
         ))}
       </nav>
