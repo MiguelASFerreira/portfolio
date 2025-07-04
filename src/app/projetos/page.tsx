@@ -15,7 +15,7 @@ export default async function Projects() {
   const projects = await getGitHubProjects();
 
   return (
-    <div className="flex flex-col items-center justify-center gap-4 px-[80px] py-10">
+    <section className="flex flex-col items-center justify-center gap-4 px-[80px] py-10">
       <div className="text-center">
         <h1 className="text-principal text-center text-2xl font-bold">
           Projetos
@@ -53,6 +53,6 @@ export default async function Projects() {
           </Link>
         </Button>
       </div>
-    </div>
+    </section>
   );
 }
