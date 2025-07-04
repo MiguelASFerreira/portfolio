@@ -11,7 +11,7 @@ export const metadata = {
   description: "Confira meus projetos desenvolvidos aplicando tecnologias modernas",
 };
 
-export default async function Projetos() {
+export default async function Projects() {
   const projects = await getGitHubProjects();
 
   return (

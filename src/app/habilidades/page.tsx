@@ -7,7 +7,7 @@ export const metadata = {
   description: "Conheça mais sobre minhas habilidades",
 };
 
-export default function Habilidades() {
+export default function Skills() {
   return (
     <section className="flex flex-col items-center justify-center gap-4 px-[80px] py-10">
       <div className="text-center">
