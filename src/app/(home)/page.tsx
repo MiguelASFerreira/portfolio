@@ -22,6 +22,7 @@ export default function Home() {
                 height={300}
                 className="rounded-[40px]"
                 quality={100}
+                priority
               />
               <div className="text-center">
                 <h1 className="font-lobster text-[28px] leading-tight text-white md:text-[36px] lg:text-[40px]">
