@@ -1,5 +1,5 @@
-import { ProfileSection } from "./components/profile-section";
-import { TimelineExperience } from "./components/timeline-experience";
+import { ProfileSection } from "./_components/profile-section";
+import { TimelineExperience } from "./_components/timeline-experience";
 
 export const metadata = {
   title: "Portfólio - Sobre Mim",

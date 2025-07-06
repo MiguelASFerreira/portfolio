@@ -1,6 +1,6 @@
 import { skills } from "@/configs/skills";
 
-import { CardSkills } from "./components/card-skills";
+import { CardSkills } from "./_components/card-skills";
 
 export const metadata = {
   title: "Portfólio - Habilidades",

@@ -1,6 +1,6 @@
 import { education } from "@/configs/education";
 
-import { AcademicCard } from "./components/academic-card";
+import { AcademicCard } from "./_components/academic-card";
 
 export default function Education() {
   return (
