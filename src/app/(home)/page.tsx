@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 
+import { BorderBeam } from "@/components/magicui/border-beam";
 import { Card, CardContent } from "@/components/ui/card";
 
 export const metadata = {
@@ -11,7 +12,7 @@ export const metadata = {
 export default function Home() {
   return (
     <div className="flex items-center justify-center px-[80px] py-5">
-      <Card className="bg-navbar">
+      <Card className="bg-navbar relative overflow-hidden border-none">
         <CardContent>
           <div className="flex flex-col justify-center gap-4 md:flex-row">
             <div className="flex flex-col items-center justify-center">
@@ -73,6 +74,13 @@ export default function Home() {
             </div>
           </div>
         </CardContent>
+        <BorderBeam
+          duration={6}
+          size={200}
+          colorFrom="#5E17EB"
+          colorTo="#5E17EB"
+          borderWidth={3}
+        />
       </Card>
     </div>
   );

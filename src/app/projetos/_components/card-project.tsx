@@ -21,7 +21,7 @@ export interface ProjectParams {
 
 export function CardProject({ id, title, des, repo, topics }: ProjectParams) {
   return (
-    <Card key={id} className="h-full w-full bg-navbar">
+    <Card key={id} className="h-full w-full bg-navbar border-none">
       <CardHeader>
         <CardTitle className="text-white hover:text-principal">
           <Link href={repo} target="_blank">
