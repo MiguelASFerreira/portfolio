@@ -12,43 +12,58 @@ if (!GITHUB_TOKEN) {
 
 export async function getGitHubProjects() {
   const reposRes = await fetch(
-    `https://api.github.com/users/${GITHUB_USERNAME}/repos?sort=last&per_page=8`,
+    `https://api.github.com/user/repos?sort=updated&per_page=100&affiliation=owner`,
     {
       headers: {
         Authorization: `token ${GITHUB_TOKEN}`,
       },
-      next: { revalidate: 600 },
     },
   );
 
   const repos = await reposRes.json();
 
-  const projects = await Promise.all(
-    repos.map(async (repo: any) => {
-      const topicsRes = await fetch(
-        `https://api.github.com/repos/${GITHUB_USERNAME}/${repo.name}/topics`,
-        {
-          headers: {
-            Authorization: `token ${GITHUB_TOKEN}`,
-            Accept: "application/vnd.github.v3+json",
-          },
-          next: { revalidate: 600 },
+  const projects: any[] = [];
+  const highlights: any[] = [];
+
+  for (const repo of repos) {
+    const topicsRes = await fetch(
+      `https://api.github.com/repos/${repo.owner.login}/${repo.name}/topics`,
+      {
+        headers: {
+          Authorization: `token ${GITHUB_TOKEN}`,
+          Accept: "application/vnd.github.v3+json",
         },
-      );
+        next: { revalidate: 600 },
+      },
+    );
 
-      const topicsData = await topicsRes.json();
+    const topicsData = await topicsRes.json();
 
-      return {
-        id: repo.id.toString(),
-        title: repo.name,
-        des: repo.description || "Sem descrição.",
-        category: repo.language?.toLowerCase() || "unknown",
-        repo: repo.html_url,
-        link: repo.homepage ? repo.homepage : "",
-        topics: topicsData.names || [],
-      };
-    }),
-  );
+    const cleanTopics = (topicsData.names || []).filter(
+      (topic: string) => topic !== "highlights",
+    );
 
-  return projects;
+    const projectData = {
+      id: repo.id.toString(),
+      title: repo.name,
+      des: repo.description || "Sem descrição.",
+      category: repo.language?.toLowerCase() || "unknown",
+      repo: repo.html_url,
+      link: repo.homepage || "",
+      topics: cleanTopics,
+    };
+
+    if (topicsData.names.includes("highlights")) {
+      highlights.push(projectData);
+    } else if (!topicsData.names.includes("highlights") || projectData.title === GITHUB_USERNAME) {
+      if (projects.length < 8) {
+        projects.push(projectData);
+      }
+    }
+  }
+
+  return {
+    highlights,
+    projects,
+  };
 }
