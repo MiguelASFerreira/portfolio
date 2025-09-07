@@ -4,8 +4,8 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { getGitHubProjects } from "@/lib/github";
 
-import { CardProject } from "./_components/card-project";
 import { CardFeaturedProject } from "./_components/card-featured-project";
+import { CardProject } from "./_components/card-project";
 
 export const metadata = {
   title: "Portfólio - Projetos",

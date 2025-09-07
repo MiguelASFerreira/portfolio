@@ -1,10 +1,8 @@
 import Image from "next/image";
-import Link from "next/link";
 
 import { Badge } from "@/components/ui/badge";
 import {
   Card,
-  CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
@@ -38,9 +36,7 @@ export function CardFeaturedProject({
         />
       </div>
       <CardHeader>
-        <CardTitle className="text-white">
-            {title}
-        </CardTitle>
+        <CardTitle className="text-white">{title}</CardTitle>
         <CardDescription className="mt-2 text-sm text-white">
           <p className="mb-3">{description}</p>
           <div className="flex flex-wrap gap-2">

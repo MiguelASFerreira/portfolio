@@ -1,6 +1,8 @@
-import Image from "next/image";
-import { Badge } from "@/components/ui/badge";
 import { LinkedinIcon, Mail, Phone } from "lucide-react";
+import Image from "next/image";
+
+import { Badge } from "@/components/ui/badge";
+
 import { LinkAction } from "./_components/link-action";
 
 export const metadata = {
