@@ -12,14 +12,14 @@ import { getTechColor } from "@/configs/getTechColor";
 export interface FeaturedProjectParams {
   id: string;
   title: string;
-  description: string;
+  des: string;
   topics: string[];
 }
 
 export function CardFeaturedProject({
   id,
   title,
-  description,
+  des,
   topics,
 }: FeaturedProjectParams) {
   return (
@@ -38,7 +38,7 @@ export function CardFeaturedProject({
       <CardHeader>
         <CardTitle className="text-white">{title}</CardTitle>
         <CardDescription className="mt-2 text-sm text-white">
-          <p className="mb-3">{description}</p>
+          <p className="mb-3">{des}</p>
           <div className="flex flex-wrap gap-2">
             {topics.map((topic, index) => (
               <Badge key={index} className={`border ${getTechColor(topic)}`}>
