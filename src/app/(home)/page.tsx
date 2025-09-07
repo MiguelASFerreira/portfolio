@@ -1,8 +1,7 @@
 import Image from "next/image";
-import Link from "next/link";
-
-import { BorderBeam } from "@/components/magicui/border-beam";
-import { Card, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { LinkedinIcon, Mail, Phone } from "lucide-react";
+import { LinkAction } from "./_components/link-action";
 
 export const metadata = {
   title: "Portfólio - Miguel Antonio",
@@ -11,77 +10,58 @@ export const metadata = {
 
 export default function Home() {
   return (
-    <div className="flex items-center justify-center px-[80px] py-5">
-      <Card className="bg-navbar relative overflow-hidden border-none">
-        <CardContent>
-          <div className="flex flex-col justify-center gap-4 md:flex-row">
-            <div className="flex flex-col items-center justify-center">
-              <Image
-                src="https://avatars.githubusercontent.com/u/106342952?v=4"
-                alt="Miguel Antonio"
-                width={300}
-                height={300}
-                className="rounded-[40px]"
-                quality={100}
-                priority
-              />
-              <div className="text-center">
-                <h1 className="font-lobster text-[28px] leading-tight text-white md:text-[36px] lg:text-[40px]">
-                  Miguel Antonio Santos Ferreira!
-                </h1>
-                <p className="font-lobster typing-animation mt-2 max-w-max text-xl text-white md:text-2xl lg:text-3xl">
-                  Desenvolvedor FullStack
-                </p>
-              </div>
-            </div>
-            <div className="flex flex-col py-3">
-              <h1 className="font-lobster text-lg text-white">
-                Sou Miguel Antonio, desenvolvedor Full Stack, com 21 anos de
-                idade, formado em Análise e Desenvolvimento de Sistemas e com
-                pós-graduação em Desenvolvimento Full Stack. Sou apaixonado por
-                tecnologia. Desde o início da minha trajetória venho me
-                dedicando ao desenvolvimento de soluções completas, tanto no
-                front quanto no back-end, além de aplicações mobile. Estou em
-                constante evolução, buscando aprofundar meus conhecimentos e
-                ampliar minhas habilidades para entregar resultados cada vez
-                melhores. Embora esteja apenas começando, tenho metas bem
-                definidas e um forte desejo de crescimento profissional. Este
-                portfólio reúne um pouco da minha história, experiências e
-                objetivos que me impulsionam a seguir em frente com dedicação e
-                propósito.
-              </h1>
-              <div className="border-muted-foreground my-4 w-full border" />
-              <div className="flex flex-col gap-4">
-                <div>
-                  <h2 className="font-lobster text-lg text-white">Email:</h2>
-                  <p className="text-white">migant1306@gmail.com</p>
-                </div>
-                <div>
-                  <h2 className="font-lobster text-lg text-white">Linkedin:</h2>
-                  <Link
-                    className="hover:text-principal text-white hover:underline"
-                    href="https://www.linkedin.com/in/miguel-antonio-624ba1234/"
-                    target="_blank"
-                  >
-                    Linkedin - Miguel Antonio
-                  </Link>
-                </div>
-                <div>
-                  <h2 className="font-lobster text-lg text-white">Contato:</h2>
-                  <p className="text-white">+55 (44) 99722-1048</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </CardContent>
-        <BorderBeam
-          duration={6}
-          size={200}
-          colorFrom="#5E17EB"
-          colorTo="#5E17EB"
-          borderWidth={3}
+    <section className="my-10 flex flex-col space-y-6 px-4">
+      <div className="flex flex-col items-center gap-8 md:flex-row md:justify-center md:gap-10">
+        <div className="w-full max-w-3xl space-y-4 text-center md:text-left">
+          <Badge className="bg-principal">✨ Desenvolvedor FullStack</Badge>
+          <h1 className="text-4xl font-bold text-white sm:text-5xl md:text-6xl">
+            Miguel Antonio
+            <span className="text-principal block">Santos Ferreira</span>
+          </h1>
+          <p className="text-base text-white sm:text-lg md:text-justify">
+            Sou Miguel Antonio, desenvolvedor Full Stack, com 21 anos de idade,
+            formado em Análise e Desenvolvimento de Sistemas e com pós-graduação
+            em Desenvolvimento Full Stack. Sou apaixonado por tecnologia. Desde
+            o início da minha trajetória venho me dedicando ao desenvolvimento
+            de soluções completas, tanto no front quanto no back-end, além de
+            aplicações mobile. Estou em constante evolução, buscando aprofundar
+            meus conhecimentos e ampliar minhas habilidades para entregar
+            resultados cada vez melhores. Embora esteja apenas começando, tenho
+            metas bem definidas e um forte desejo de crescimento profissional.
+            Este portfólio reúne um pouco da minha história, experiências e
+            objetivos que me impulsionam a seguir em frente com dedicação e
+            propósito.
+          </p>
+        </div>
+
+        <div className="relative h-64 w-64 md:h-[300px] md:w-[300px]">
+          <Image
+            src={"https://avatars.githubusercontent.com/u/106342952?v=4"}
+            alt="Foto de perfil"
+            fill
+            className="rounded-lg object-cover"
+            priority
+          />
+        </div>
+      </div>
+
+      <div className="mt-8 flex flex-col items-center gap-4 sm:flex-row sm:justify-center sm:gap-8">
+        <LinkAction
+          href="mailto:test@example.com"
+          icon={<Mail className="h-4 w-4 text-white" />}
+          text="migant1306@gmail.com"
         />
-      </Card>
-    </div>
+        <LinkAction
+          href="tel:+5544997221048"
+          icon={<Phone className="h-4 w-4 text-white" />}
+          text="+55 (44) 99722-1048"
+        />
+        <LinkAction
+          href="https://www.linkedin.com/in/miguel-antonio-624ba1234/"
+          icon={<LinkedinIcon className="h-4 w-4 text-white" />}
+          text="Miguel Antonio"
+        />
+      </div>
+    </section>
   );
 }
