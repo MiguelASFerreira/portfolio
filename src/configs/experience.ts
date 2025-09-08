@@ -10,6 +10,15 @@ export interface ExperienceEntry {
 
 export const experience: ExperienceEntry[] = [
   {
+    title: 'Grupo Integrado - Auxiliar de Governança de TI',
+    description: 'Atuo na contrução e implementação de agentes de ia',
+    startDate: 'Set. 2025',
+    endDate: 'Atual',
+    isActive: true,
+    logo: '/logo/logo-integrado.svg',
+    companyUrl: 'https://www.grupointegrado.br/',
+  },
+  {
     title: "A.J Rorato - Jovem Aprendiz",
     description:
       "Atuei como jovem aprendiz, participando de atividades em sala de aula voltadas para o desenvolvimento profissional e, posteriormente, desempenhei funções na linha de produção, sendo responsável pelo processo de embalamento de armários de banheiro, sempre seguindo os padrões de qualidade estabelecidos e desenvolvendo habilidades como organização, disciplina e trabalho em equipe.",
