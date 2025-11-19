@@ -27,14 +27,6 @@ export function CardFeaturedProject({
       key={id}
       className="bg-navbar h-full w-full overflow-hidden border-none"
     >
-      <div className="relative h-48 w-full">
-        <Image
-          src={`/api/thumbnail?repo=${title}`}
-          alt={`${title} thumbnail`}
-          fill
-          className="object-contain"
-        />
-      </div>
       <CardHeader>
         <CardTitle className="text-white">{title}</CardTitle>
         <CardDescription className="mt-2 text-sm text-white">
