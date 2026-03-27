@@ -49,7 +49,7 @@ export default function Home() {
 
       <div className="mt-8 flex flex-col items-center gap-4 sm:flex-row sm:justify-center sm:gap-8">
         <LinkAction
-          href="mailto:test@example.com"
+          href="mailto:migant1306@gmail.com"
           icon={<Mail className="h-4 w-4 text-white" />}
           text="migant1306@gmail.com"
         />

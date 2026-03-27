@@ -21,9 +21,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="pt-BR">
       <body
-        className={`${inter.className} ${lobster.variable} antialiased pt-20`}
+        className={`${inter.className} ${lobster.variable} pt-20 antialiased`}
         suppressHydrationWarning
       >
         <Navbar />

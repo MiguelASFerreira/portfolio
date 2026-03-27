@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 "use server";
 
 import { env } from "@/env";
@@ -13,6 +12,7 @@ type GitHubRepo = {
   owner: {
     login: string;
   };
+  archived: boolean;
 };
 
 type GitHubTopicsResponse = {
@@ -29,7 +29,6 @@ type Project = {
   topics: string[];
 };
 
-
 const { GITHUB_TOKEN, GITHUB_USERNAME } = env;
 
 if (!GITHUB_TOKEN) {
@@ -41,38 +40,83 @@ const githubHeaders = {
   Accept: "application/vnd.github+json",
 };
 
-export async function getGitHubProjects() {
-  const reposRes = await fetch(
-    "https://api.github.com/user/repos?sort=updated&per_page=100&affiliation=owner",
-    {
-      headers: githubHeaders,
-      next: { revalidate: 600 },
-    },
-  );
+const REVALIDATE_SECONDS = 600;
+const REQUEST_TIMEOUT_MS = 8000;
+const TOPIC_CONCURRENCY = 8;
+const MAX_REPOS_TO_PROCESS = 40;
+const EXCLUDED_REPOS = new Set(["portfolio"]);
 
-  if (!reposRes.ok) {
-    throw new Error("Erro ao buscar repositórios do GitHub");
+async function mapWithConcurrency<T, R>(
+  items: T[],
+  concurrency: number,
+  mapper: (item: T, index: number) => Promise<R>,
+) {
+  const results = new Array<R>(items.length);
+  let currentIndex = 0;
+
+  async function worker() {
+    while (currentIndex < items.length) {
+      const index = currentIndex;
+      currentIndex += 1;
+      results[index] = await mapper(items[index], index);
+    }
   }
 
-  const repos: GitHubRepo[] = await reposRes.json();
+  const workers = Array.from(
+    { length: Math.min(concurrency, items.length) },
+    () => worker(),
+  );
+  await Promise.all(workers);
 
-  const projects: Project[] = [];
-  const highlights: Project[] = [];
+  return results;
+}
 
-  await Promise.all(
-    repos.map(async (repo) => {
-      const topicsRes = await fetch(
-        `https://api.github.com/repos/${repo.owner.login}/${repo.name}/topics`,
-        {
-          headers: githubHeaders,
-          next: { revalidate: 600 },
-        },
+async function fetchGitHubJson<T>(url: string) {
+  const response = await fetch(url, {
+    headers: githubHeaders,
+    next: { revalidate: REVALIDATE_SECONDS },
+    signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS),
+  });
+
+  if (!response.ok) {
+    throw new Error(`Erro GitHub (${response.status})`);
+  }
+
+  return (await response.json()) as T;
+}
+
+async function fetchTopics(repo: GitHubRepo): Promise<string[]> {
+  try {
+    const data = await fetchGitHubJson<GitHubTopicsResponse>(
+      `https://api.github.com/repos/${repo.owner.login}/${repo.name}/topics`,
+    );
+    return data.names;
+  } catch {
+    return [];
+  }
+}
+
+export async function getGitHubProjects() {
+  const repos = await fetchGitHubJson<GitHubRepo[]>(
+    "https://api.github.com/user/repos?sort=updated&per_page=60&affiliation=owner",
+  );
+
+  const filteredRepos = repos
+    .filter((repo) => {
+      const repoName = repo.name.toLowerCase();
+      return (
+        !repo.archived &&
+        repo.name !== GITHUB_USERNAME &&
+        !EXCLUDED_REPOS.has(repoName)
       );
+    })
+    .slice(0, MAX_REPOS_TO_PROCESS);
 
-      if (!topicsRes.ok) return;
-
-      const { names }: GitHubTopicsResponse = await topicsRes.json();
-
+  const projectCandidates = await mapWithConcurrency(
+    filteredRepos,
+    TOPIC_CONCURRENCY,
+    async (repo) => {
+      const names = await fetchTopics(repo);
       const isHighlight = names.includes("highlights");
 
       const project: Project = {
@@ -85,16 +129,23 @@ export async function getGitHubProjects() {
         topics: names.filter((topic) => topic !== "highlights"),
       };
 
-      if (isHighlight) {
-        highlights.push(project);
-        return;
-      }
-
-      if (projects.length < 8 && repo.name !== GITHUB_USERNAME) {
-        projects.push(project);
-      }
-    }),
+      return { isHighlight, project };
+    },
   );
+
+  const highlights: Project[] = [];
+  const projects: Project[] = [];
+
+  for (const candidate of projectCandidates) {
+    if (candidate.isHighlight) {
+      highlights.push(candidate.project);
+      continue;
+    }
+
+    if (projects.length < 8) {
+      projects.push(candidate.project);
+    }
+  }
 
   return {
     highlights,

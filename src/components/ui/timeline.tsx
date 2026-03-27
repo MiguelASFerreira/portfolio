@@ -48,21 +48,34 @@ const TimelineEventTitle = ({ children }: { children: React.ReactNode }) => (
   <p className="text-base text-white">{children}</p>
 );
 
+function formatDescription(children: React.ReactNode) {
+  if (typeof children !== "string") {
+    return children;
+  }
+
+  // Renderiza apenas o padrão **texto** sem inserir HTML bruto.
+  return children
+    .split(/(\*\*.*?\*\*)/g)
+    .filter(Boolean)
+    .map((part, index) => {
+      const strongMatch = part.match(/^\*\*(.*?)\*\*$/);
+      if (strongMatch) {
+        return <strong key={`strong-${index}`}>{strongMatch[1]}</strong>;
+      }
+
+      return <span key={`text-${index}`}>{part}</span>;
+    });
+}
+
 const TimelineEventDescription = ({
   children,
 }: {
   children: React.ReactNode;
 }) => {
-  const formattedDescription =
-    children && typeof children === "string"
-      ? children.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
-      : children;
-
   return (
-    <p
-      className="text-muted-foreground text-base"
-      dangerouslySetInnerHTML={{ __html: formattedDescription as string }}
-    />
+    <p className="text-muted-foreground text-base">
+      {formatDescription(children)}
+    </p>
   );
 };
 
