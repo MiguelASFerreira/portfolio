@@ -1,9 +1,10 @@
-import { LinkedinIcon, Mail, Phone } from "lucide-react";
+import { Mail, Phone } from "lucide-react";
 import Image from "next/image";
 
 import { Badge } from "@/components/ui/badge";
 
 import { LinkAction } from "./_components/link-action";
+import LinkedinIcon from "@/app/(home)/_components/icons/linkedin";
 
 export const metadata = {
   title: "Portfólio - Miguel Antonio",
@@ -41,6 +42,7 @@ export default function Home() {
             src={"https://avatars.githubusercontent.com/u/106342952?v=4"}
             alt="Foto de perfil"
             fill
+            sizes="(max-width: 768px) 256px, 300px"
             className="rounded-lg object-cover"
             priority
           />
