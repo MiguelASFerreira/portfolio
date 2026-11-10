@@ -2,8 +2,9 @@ import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 
 import { env } from "@/env";
+import { octokit } from "@/lib/octokit";
 
-const { GITHUB_TOKEN, GITHUB_USERNAME } = env;
+const { GITHUB_USERNAME } = env;
 
 const repoSchema = z
   .string()
@@ -29,26 +30,17 @@ export async function GET(req: NextRequest) {
   const repo = parsedRepo.data;
 
   try {
-    const res = await fetch(
-      `https://api.github.com/repos/${GITHUB_USERNAME}/${repo}/contents/public/thumbnail.png`,
-      {
-        headers: {
-          Authorization: `Bearer ${GITHUB_TOKEN}`,
-          Accept: "application/vnd.github.v3.raw",
-        },
-        signal: AbortSignal.timeout(8000),
-      },
-    );
+    const { data } = await octokit.rest.repos.getContent({
+      owner: GITHUB_USERNAME,
+      repo,
+      path: "public/thumbnail.png",
+    });
 
-    if (res.status === 404) {
+    if (Array.isArray(data) || data.type !== "file" || !data.content) {
       return redirectToDefaultThumbnail(req);
     }
 
-    if (!res.ok) {
-      return redirectToDefaultThumbnail(req);
-    }
-
-    const buffer = Buffer.from(await res.arrayBuffer());
+    const buffer = Buffer.from(data.content, "base64");
 
     return new NextResponse(buffer, {
       headers: {

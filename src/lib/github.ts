@@ -1,23 +1,7 @@
 "use server";
 
 import { env } from "@/env";
-
-type GitHubRepo = {
-  id: number;
-  name: string;
-  description: string | null;
-  language: string | null;
-  html_url: string;
-  homepage: string | null;
-  owner: {
-    login: string;
-  };
-  archived: boolean;
-};
-
-type GitHubTopicsResponse = {
-  names: string[];
-};
+import { octokit } from "@/lib/octokit";
 
 type Project = {
   id: string;
@@ -29,19 +13,8 @@ type Project = {
   topics: string[];
 };
 
-const { GITHUB_TOKEN, GITHUB_USERNAME } = env;
+const { GITHUB_USERNAME } = env;
 
-if (!GITHUB_TOKEN) {
-  throw new Error("GITHUB_TOKEN não definido no .env.local");
-}
-
-const githubHeaders = {
-  Authorization: `Bearer ${GITHUB_TOKEN}`,
-  Accept: "application/vnd.github+json",
-};
-
-const REVALIDATE_SECONDS = 600;
-const REQUEST_TIMEOUT_MS = 8000;
 const TOPIC_CONCURRENCY = 8;
 const MAX_REPOS_TO_PROCESS = 40;
 const EXCLUDED_REPOS = new Set(["portfolio"]);
@@ -71,25 +44,12 @@ async function mapWithConcurrency<T, R>(
   return results;
 }
 
-async function fetchGitHubJson<T>(url: string) {
-  const response = await fetch(url, {
-    headers: githubHeaders,
-    next: { revalidate: REVALIDATE_SECONDS },
-    signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS),
-  });
-
-  if (!response.ok) {
-    throw new Error(`Erro GitHub (${response.status})`);
-  }
-
-  return (await response.json()) as T;
-}
-
-async function fetchTopics(repo: GitHubRepo): Promise<string[]> {
+async function fetchTopics(owner: string, repo: string): Promise<string[]> {
   try {
-    const data = await fetchGitHubJson<GitHubTopicsResponse>(
-      `https://api.github.com/repos/${repo.owner.login}/${repo.name}/topics`,
-    );
+    const { data } = await octokit.rest.repos.getAllTopics({
+      owner,
+      repo,
+    });
     return data.names;
   } catch {
     return [];
@@ -97,9 +57,11 @@ async function fetchTopics(repo: GitHubRepo): Promise<string[]> {
 }
 
 export async function getGitHubProjects() {
-  const repos = await fetchGitHubJson<GitHubRepo[]>(
-    "https://api.github.com/user/repos?sort=updated&per_page=60&affiliation=owner",
-  );
+  const { data: repos } = await octokit.rest.repos.listForAuthenticatedUser({
+    sort: "updated",
+    per_page: 60,
+    affiliation: "owner",
+  });
 
   const filteredRepos = repos
     .filter((repo) => {
@@ -116,7 +78,7 @@ export async function getGitHubProjects() {
     filteredRepos,
     TOPIC_CONCURRENCY,
     async (repo) => {
-      const names = await fetchTopics(repo);
+      const names = await fetchTopics(repo.owner.login, repo.name);
       const isHighlight = names.includes("highlights");
 
       const project: Project = {
